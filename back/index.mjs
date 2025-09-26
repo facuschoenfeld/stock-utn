@@ -1,14 +1,14 @@
 // GUIA https://expressjs.com/en/guide/routing.html
 import dotenv from "dotenv"
 import { Product } from "./models/products.mjs"
-import { Sequelize } from "sequelize"
-// Importar Express
+import {sequelize} from "./config/db.mjs"
+import cors from "cors"
 import express from "express"
 
 // Crear servidor Express
 const app = express()
 dotenv.config()
-
+app.use(cors())
 // Agregar a express el soporte para JSON
 app.use(express.json())
 
@@ -36,9 +36,9 @@ app.delete('/', async function(req, res){
     res.json("ruta delete")
 })
 
-// Iniciar servidor express
+// Iniciar servidor express y agregar sequelize.sync()
 app.listen(3000,()=>{
     console.log("Servidor iniciado en http://localhost:3000")
+    sequelize.sync()
 })
 
-// Dentro de la función hay que agregar sequelize.sync()
