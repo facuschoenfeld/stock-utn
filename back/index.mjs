@@ -21,9 +21,14 @@ app.get('/',async function(req, res){
 
 // Crear Ruta POST para crear producto
 app.post('/',async function(req, res){
-    res.json({
-        mensaje: "ruta post"
+    const body = req.body
+    const product = new Product({
+        name: body.name,
+        price: Number(body.price),
+        stock: Number(body.stock)
     })
+
+    await product.save()
 })
 
 // Crear Ruta PUT para modificar producto
